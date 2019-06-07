@@ -1,17 +1,8 @@
 package com.dng.api.domain;
 
-import javax.persistence.Id;
+import lombok.*;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
-
-import javax.persistence.Entity;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "COURSE")
@@ -21,16 +12,17 @@ import javax.persistence.Table;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-
 public class Course {
 
-	@Id
-	private String id;
+    @Id
+    private String id;
 
-	private String code;
+    private String code;
 
-	private String name;
+    private String name;
 
-	private String description;
+    private String description;
 
+    @ManyToOne
+    Category category;
 }

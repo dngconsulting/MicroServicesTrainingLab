@@ -8,8 +8,6 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import com.dng.api.repository.CourseRepository;
 
 @Configuration
-@EnableJpaRepositories(basePackageClasses = CourseRepository.class)
-@EntityScan(basePackageClasses = Course.class)
 public class JpaConfig {
 
 }
