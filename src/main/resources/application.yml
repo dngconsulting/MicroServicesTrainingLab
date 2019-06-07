@@ -1,0 +1,53 @@
+logging:
+  level:
+    com.dng.api: INFO
+    org.springframework.boot.context: INFO
+server:
+  compression:
+    enabled: true
+  port: 8080
+  servlet: 
+    context-path: /training
+springfox:
+  documentation:
+    swagger.v2.path: /v2/api-docs
+    info:
+      title: 
+      description: DNG Training API Docs.
+      version: 1.0
+    base-package: com.dng.api
+management:
+  server:
+    port: 9090
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+
+spring:
+  messages:
+    basename: i18n/messages
+  cache:
+    type: redis
+  data:
+    mongodb:
+      host: 127.0.0.1
+      port: 27017
+      database: training
+
+  datasource:
+    platform: postgresql
+    url: jdbc:postgresql://127.0.0.1:5432/training
+    username: postgres
+    password: admin
+    continue-on-error: true
+  jpa:
+    hibernate:
+      ddl-auto: update
+    database: POSTGRESQL
+    database-platform: org.hibernate.dialect.PostgreSQL9Dialect
+    properties:
+      hibernate:
+        jdbc:
+          lob:
+            non_contextual_creation: true
