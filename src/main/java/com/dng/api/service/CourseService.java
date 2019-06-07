@@ -15,7 +15,6 @@ public class CourseService {
 	private CourseRepository coursesRepo;
 
 	public Course findByCode(String code) {
-		System.out.println("toutou");
 		return coursesRepo.findByCode(code);
 	}
 
