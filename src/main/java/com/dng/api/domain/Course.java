@@ -1,7 +1,7 @@
 package com.dng.api.domain;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
-
 import javax.persistence.*;
 
 @Entity
@@ -23,6 +23,7 @@ public class Course {
 
     private String description;
 
-    @ManyToOne
-    Category category;
+    /*@ManyToOne
+    @JsonManagedReference
+    private Category category;*/
 }

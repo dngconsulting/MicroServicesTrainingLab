@@ -1,5 +1,6 @@
 package com.dng.api.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 
 import javax.persistence.*;
@@ -13,11 +14,11 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-
 public class Category  {
     @Id
     private String id;
     private String name;
-    @OneToMany(mappedBy = "category")
-    Set<Course> categories;
+    /*@OneToMany(mappedBy = "category")
+    @JsonBackReference
+    Set<Course> categories;*/
 }

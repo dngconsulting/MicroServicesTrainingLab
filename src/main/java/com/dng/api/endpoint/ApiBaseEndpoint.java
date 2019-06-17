@@ -1,55 +1,57 @@
 package com.dng.api.endpoint;
 
+import com.dng.api.domain.Course;
+import com.dng.api.exception.CourseNotFoundException;
+import com.dng.api.repository.CourseRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
-
-import com.dng.api.domain.Course;
-import com.dng.api.service.CourseService;
-
 @RestController
-public class ApiBaseEndpoint {
+class ApiBaseEndpoint {
 
 	@Autowired
-	private CourseService courseService;
+	CourseRepository repository;
 
-	@GetMapping(path = "/courses/{code}")
-	@ResponseBody
-	public Course listByCode(@PathVariable("code") String code) {
-		return courseService.findByCode(code);
+	public ApiBaseEndpoint(CourseRepository repository) {
+		this.repository = repository;
 	}
 
-	@GetMapping(path = "/courses/")
+	@GetMapping("/courses")
 	@ResponseBody
-	public List<Course> listAllCourses() {
-		return courseService.findAll();
+	List<Course> all() {
+		return repository.findAll();
 	}
 
-	@PostMapping(path = "/courses/new")
-	@ResponseBody
-	public Course saveCourse(@RequestBody Course Course) {
-		return courseService.save(Course);
+	@PostMapping("/courses")
+	Course newCourse(@RequestBody Course newCourse) {
+		return repository.save(newCourse);
 	}
 
-	@PutMapping(path = "/courses/update")
-	@ResponseBody
-	public Course updateCourse(@RequestBody Course Course) {
-		return courseService.save(Course);
+	@GetMapping("/courses/{id}")
+	Course one(@PathVariable String id) {
+		return repository.findById(id)
+				.orElseThrow(() -> new CourseNotFoundException(id));
 	}
 
-	@DeleteMapping(path = "/courses/remove/{id}")
-	@ResponseBody
-	public String deleteCourse(@PathVariable("id") String id) {
-		courseService.delete(id);
-		return "Course removed";
+	@PutMapping("/courses/{id}")
+	Course updateCourse(@RequestBody Course newCourse, @PathVariable String id) {
+		return repository.findById(id)
+				.map(course -> {
+					course.setName(newCourse.getName());
+					course.setCode(newCourse.getCode());
+					course.setDescription(newCourse.getDescription());
+					return repository.save(course);
+				})
+				.orElseGet(() -> {
+					newCourse.setId(id);
+					return repository.save(newCourse);
+				});
 	}
 
+	@DeleteMapping("/courses/{id}")
+	void deleteCourse(@PathVariable String id) {
+		repository.deleteById(id);
+	}
 }
