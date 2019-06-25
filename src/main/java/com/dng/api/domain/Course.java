@@ -23,7 +23,7 @@ public class Course {
 
     private String description;
 
-    /*@ManyToOne
+    @ManyToOne
     @JsonManagedReference
-    private Category category;*/
+    private Category category;
 }

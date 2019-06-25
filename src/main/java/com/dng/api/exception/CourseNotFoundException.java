@@ -1,6 +1,9 @@
 package com.dng.api.exception;
 
-//@ResponseStatus(value = HttpStatus.NOT_FOUND)
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ResponseStatus;
+
+@ResponseStatus(value = HttpStatus.NOT_FOUND)
 public class CourseNotFoundException extends RuntimeException {
 
     private String errorCode = "COURSE_NOT_FOUND" ;

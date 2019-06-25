@@ -18,7 +18,7 @@ public class Category  {
     @Id
     private String id;
     private String name;
-    /*@OneToMany(mappedBy = "category")
+    @OneToMany(mappedBy = "category")
     @JsonBackReference
-    Set<Course> categories;*/
+    Set<Course> categories;
 }

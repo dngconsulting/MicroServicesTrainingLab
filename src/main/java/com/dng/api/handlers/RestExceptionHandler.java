@@ -8,11 +8,11 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 
-@RestControllerAdvice
+//@RestControllerAdvice
 public class RestExceptionHandler  {
 
-    @ExceptionHandler(Exception.class)
-    @ResponseStatus(HttpStatus.NOT_FOUND)
+    //@ExceptionHandler(Exception.class)
+    //@ResponseStatus(HttpStatus.NOT_FOUND)
     protected ApiError handleError (
             Exception ex, WebRequest request) {
         ApiError error = new ApiError(ex.getMessage(),
