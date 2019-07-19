@@ -36,7 +36,7 @@ class ApiBaseEndpoint {
 		return repository.findAll();
 	}
 
-	@GetMapping("/toto")
+	@GetMapping("/mylogin")
 	void login() throws Exception {
 		courseService.login("user","userPassdd");
 	}
