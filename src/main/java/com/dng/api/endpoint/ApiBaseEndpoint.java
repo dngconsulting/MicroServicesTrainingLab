@@ -8,6 +8,9 @@ import com.dng.api.repository.CourseRepository;
 import com.dng.api.service.CourseService;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -30,7 +33,18 @@ class ApiBaseEndpoint {
 	@GetMapping("/courses")
 	@ResponseBody
 	List<Course> all() {
-		return courseService.findByExample();
+		return repository.findAll();
+	}
+
+	@GetMapping("/toto")
+	void login() throws Exception {
+		courseService.login("user","userPassdd");
+	}
+
+	@GetMapping("/admin")
+	@ResponseBody
+	String admin() {
+		return "Admin connected";
 	}
 
 	@PostMapping("/courses")
@@ -66,4 +80,5 @@ class ApiBaseEndpoint {
 	void deleteCourse(@PathVariable String id) {
 		repository.deleteById(id);
 	}
+
 }
