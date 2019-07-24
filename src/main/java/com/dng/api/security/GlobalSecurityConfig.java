@@ -32,10 +32,9 @@ public class GlobalSecurityConfig extends WebSecurityConfigurerAdapter {
                 .exceptionHandling()
                 .and()
                 .authorizeRequests()
-                .antMatchers("/toto").permitAll()
+                .antMatchers("/mylogin").permitAll()
                 .antMatchers("/**").authenticated()
                 .antMatchers("/admin/**").hasRole("ADMIN");
-
 
     }
     @Bean
