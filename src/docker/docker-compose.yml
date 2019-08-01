@@ -1,4 +1,4 @@
-version: "3.1"
+version: "3.7"
 services:
   app:
     image: training
@@ -17,6 +17,7 @@ services:
       mode: replicated
       replicas: 1
     depends_on:
+      
       - postgres
       - redis
       - mongodb
@@ -25,6 +26,7 @@ services:
       - backend
       - frontend
     links:
+      
       - postgres:postgres
       - redis:redis
       - mongodb:mongodb
@@ -126,7 +128,8 @@ networks:
   backend:
   frontend:
 volumes:
-  redisdata:
-  mongodbdata:
-  postgresdata:
+    
+    influxdbdata:
+    redisdata:
+    mongodbdata:
     

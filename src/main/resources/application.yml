@@ -2,7 +2,7 @@ logging:
   level:
     com.dng.api: INFO
     org.springframework.boot.context: INFO
-    org.springframework.security: DEBUG
+    org.springframework.security : DEBUG
     org:
       springframework:
         boot:
@@ -13,17 +13,16 @@ server:
   compression:
     enabled: true
   port: 8080
-  servlet:
+  servlet: 
     context-path: /training
 springfox:
   documentation:
     swagger.v2.path: /v2/api-docs
     info:
-      title:
+      title: 
       description: DNG Training API Docs.
       version: 1.0
     base-package: com.dng.api
-
 management:
   server:
     port: 9090
@@ -45,11 +44,6 @@ security:
           userInfoUri: https://www.googleapis.com/userinfo/v2/me
 
 spring:
-  application:
-    name: training
-  logstash: # Forward logs to logstash over a socket, used by LoggingConfiguration
-    enabled: true
-    url: elk:5045
   devtools:
     restart:
       enabled: true
@@ -65,7 +59,7 @@ spring:
 
   datasource:
     platform: postgresql
-    url: jdbc:postgresql://postgres:5432/training
+    url: jdbc:postgresql://127.0.0.1:5432/training
     username: postgres
     password: admin
     continue-on-error: true
