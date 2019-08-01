@@ -4,8 +4,6 @@ import lombok.*;
 
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
 @Builder
 public class CourseDTO {
     private String id;
@@ -15,4 +13,14 @@ public class CourseDTO {
     private String name;
 
     private String description;
+
+    public CourseDTO(String id, String code, String name, String description) {
+        this.id = id;
+        this.code = code;
+        this.name = name;
+        this.description = description;
+    }
+
+    public CourseDTO() {}
+
 }

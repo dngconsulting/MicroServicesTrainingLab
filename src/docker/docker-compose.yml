@@ -1,8 +1,9 @@
-version: "3.7"
+version: "3.1"
 services:
   app:
-    image: @project.artifactId@:@project.version@
-    ports: 
+    image: training
+    container_name: training
+    ports:
       - 8080:8080
       - 9090:9090
     deploy:
@@ -16,29 +17,44 @@ services:
       mode: replicated
       replicas: 1
     depends_on:
-      
       - postgres
       - redis
       - mongodb
+      - elk
     networks:
       - backend
       - frontend
     links:
-      
       - postgres:postgres
       - redis:redis
       - mongodb:mongodb
-  
+      - elk
+
+  elk:
+    build : ./elk
+    container_name: elk
+    ports:
+      - "5601:5601"
+      - "9200:9200"
+      - "5044:5044"
+      - "5045:5045"
+    networks:
+      - backend
+
   postgres:
-    image: postgres:11.2-alpine
-    ports: 
+    image: postgres:11.4-alpine
+    container_name: postgres
+    restart: always
+    ports:
       - 5432:5432
     networks:
       - backend
-    volumes:
-      - postgresdata:/var/lib/postgresql/data
+    #volumes:
+    #  - postgresdata:/var/lib/postgresql/data
     environment:
-      - "POSTGRES_PASSWORD=pgdbtraining@123"
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: training
     deploy:
       resources:
         limits:
@@ -53,7 +69,8 @@ services:
         constraints: [node.role == manager]
   redis:
     image: redis:5.0.4-alpine
-    ports: 
+    container_name: redis
+    ports:
       - 6379:6379
     networks:
       - backend
@@ -71,7 +88,8 @@ services:
       replicas: 1
   mongodb:
     image: bitnami/mongodb:4.1
-    ports: 
+    container_name: mongodb
+    ports:
       - 27017:27017
     networks:
       - backend
@@ -89,13 +107,12 @@ services:
       replicas: 1
       placement:
         constraints: [node.role == manager]
-  
+
 networks:
   backend:
   frontend:
 volumes:
-    
-    influxdbdata:
-    redisdata:
-    mongodbdata:
+  redisdata:
+  mongodbdata:
+  postgresdata:
     

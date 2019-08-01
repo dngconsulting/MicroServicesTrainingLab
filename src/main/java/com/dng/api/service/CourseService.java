@@ -22,8 +22,7 @@ import java.util.Optional;
 @Service
 public class CourseService {
     @Autowired CourseRepository courseRepository;
-    @Autowired
-    private AuthenticationManager authenticationManager;
+
     public List<Course> findByExample(String description) {
 
         Course course = new Course();
@@ -38,14 +37,4 @@ public class CourseService {
         return all;
     }
 
-    public void login(String username, String password) {
-        List<GrantedAuthority> list = new ArrayList<GrantedAuthority>();
-        list.add(new SimpleGrantedAuthority("USER"));
-        UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(username, password);
-        Authentication authenticate = authenticationManager.authenticate(usernamePasswordAuthenticationToken);
-        if (authenticate.isAuthenticated()) {
-            SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
-            System.out.println("Utilisateur authentifié");
-        }
-    }
 }
