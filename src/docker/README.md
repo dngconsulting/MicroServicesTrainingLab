@@ -1,3 +1,6 @@
+---------------------
+- How to deploy Training containers 
+--------------------
 
 # Working with docker stack
 
@@ -6,22 +9,28 @@ In order to set up your application, you can use the docker stack suite. To do t
 1. build the application image
 2. run docker stack build
 
+# You should be located in the target directory where you Spring Boot JAR lives
+```
+cd /myproject/target  
+```
 
 # Build the application image #
 ```
-docker build -t @project.artifactId@:@project.version@ .
+docker build -t training .
 ```
 After this build finishes, you can see the image built using this command:
 ```
 docker image ls
 ```
-You should see the image called @project.artifactId@, with the version tag @project.version@.
+You should see the image called training:latest, with the version tag latest.
 
 
-# Run the docker stack
+# Run the docker stack or only docker-compose 
 This command is used to setting up your complete stack: since the frontend app to the database backend and metrics support.
 
 ```
-docker stack deploy --compose-file docker-compose.yml @project.artifactId@
+docker-compose up -d
+OR
+docker stack deploy --compose-file docker-compose.yml training
 ```
 Note: *docker stack* runs only on swarm mode. Please execute _docker swarm init_ before docker stack commands.
