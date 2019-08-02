@@ -26,10 +26,25 @@ springfox:
 management:
   server:
     port: 9090
+  endpoint:
+    health:
+      show-details: always
   endpoints:
+    enabled: true
+    prometheus:
+      enabled: true
     web:
       exposure:
         include: '*'
+  metrics:
+    tags:
+      application: training
+    export:
+      prometheus:
+        enabled: true
+      elastic:
+        host: https://elk:9200
+
 #security:
 #    oauth2:
 #      client:
