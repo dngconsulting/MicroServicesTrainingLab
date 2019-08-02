@@ -26,7 +26,6 @@ services:
       - backend
       - frontend
     links:
-      
       - postgres:postgres
       - redis:redis
       - mongodb:mongodb

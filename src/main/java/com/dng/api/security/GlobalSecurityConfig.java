@@ -24,6 +24,7 @@ public class GlobalSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        http.csrf().disable().authorizeRequests().anyRequest().permitAll();
         /*http.antMatcher("/**")
                 .authorizeRequests()
                 .antMatchers("/", "/callback", "/login**", "/error**")

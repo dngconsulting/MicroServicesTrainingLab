@@ -30,20 +30,25 @@ management:
     web:
       exposure:
         include: '*'
-security:
-    oauth2:
-      client:
-        clientId: clientId
-        clientSecret: secret
-        accessTokenUri: https://www.googleapis.com/oauth2/v4/token
-        userAuthorizationUri: https://accounts.google.com/o/oauth2/auth
-        clientAuthenticationScheme: header
-        authenticationScheme: header
-        scope: profile
-      resource:
-          userInfoUri: https://www.googleapis.com/userinfo/v2/me
+#security:
+#    oauth2:
+#      client:
+#        clientId: clientId
+#        clientSecret: secret
+#        accessTokenUri: https://www.googleapis.com/oauth2/v4/token
+#        userAuthorizationUri: https://accounts.google.com/o/oauth2/auth
+#        clientAuthenticationScheme: header
+#        authenticationScheme: header
+#        scope: profile
+#      resource:
+#          userInfoUri: https://www.googleapis.com/userinfo/v2/me
 
 spring:
+  application:
+    name: training
+  logstash:
+    enabled: true
+    url: elk:5045
   devtools:
     restart:
       enabled: true
@@ -59,7 +64,7 @@ spring:
 
   datasource:
     platform: postgresql
-    url: jdbc:postgresql://127.0.0.1:5432/training
+    url: jdbc:postgresql://postgres:5432/training
     username: postgres
     password: admin
     continue-on-error: true
